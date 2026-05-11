@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:vm="using:PCFirmApp.ViewModels"
+            mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+            x:Class="PCFirmApp.Views.RegisterView"
+            x:DataType="vm:RegisterViewModel">
+
+    <Design.DataContext>
+        <vm:RegisterViewModel/>
+    </Design.DataContext>
+
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Padding="20">
+            <StackPanel Spacing="10">
+                <Button Content="Register"
+                        Command="{Binding RegisterCommand}"
+                        IsEnabled="{Binding !IsLoading}"
+                        Padding="10"
+                        Background="#107C10"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"/>
+
+                <Button Content="Back to Login"
+                        Command="{Binding BackCommand}"
+                        Padding="10"
+                        Background="#666"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer Padding="20">
+            <StackPanel Spacing="15">
+                <TextBlock Text="Create Account" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#0078D4"/>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Username" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Username}" PlaceholderText="Choose a username" Padding="10,8"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Email" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Email}" PlaceholderText="your@email.com" Padding="10,8"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Password" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Password}" PasswordChar="•" PlaceholderText="At least 6 characters" Padding="10,8"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Confirm Password" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding ConfirmPassword}" PasswordChar="•" PlaceholderText="Repeat password" Padding="10,8"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Address (Optional)" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Address}" PlaceholderText="Your address" Padding="10,8"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Phone Number (Optional)" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding PhoneNumber}" PlaceholderText="Your phone number" Padding="10,8"/>
+                </StackPanel>
+
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" TextWrapping="Wrap"/>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+
+</UserControl>

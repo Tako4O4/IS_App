@@ -2,9 +2,9 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using App.ViewModels;
+using PCFirmApp.ViewModels;
 
-namespace App;
+namespace PCFirmApp;
 
 /// <summary>
 /// Given a view model, returns the corresponding view if possible.
