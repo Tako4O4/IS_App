@@ -29,6 +29,4 @@ public class Customer : User
     public string? PhoneNumber { get; set; }
 
     public ICollection<Order> Orders { get; set; } = [];
-    public ICollection<ServiceRequest> ServiceRequests { get; set; } = [];
-    public ICollection<ProductReview> Reviews { get; set; } = [];
 }

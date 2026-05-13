@@ -9,3 +9,20 @@ public enum UserRole
     JuniorEmployee,
     Customer
 }
+
+public enum OrderStatus
+{
+    Pending,
+    Processing,
+    Ready,
+    Completed,
+    Cancelled
+}
+
+public enum ProductCategory
+{
+    DesktopPC,
+    LaptopPC,
+    Printer,
+    Peripheral
+}
