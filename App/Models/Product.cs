@@ -17,6 +17,8 @@ public abstract class Product
     public double AverageRating { get; set; } = 0;
 
     public ICollection<OrderItem> OrderItems { get; set; } = [];
+    public ICollection<ProductReview> Reviews { get; set; } = [];
+    public ICollection<PromotionProduct> PromotionProducts { get; set; } = [];
 }
 
 public class PreAssembledPC : Product
@@ -26,5 +28,6 @@ public class PreAssembledPC : Product
 
 public class Component : Product
 {
+    public required ComponentType ComponentType { get; set; }
     public string? CompatibilityNotes { get; set; }
 }
