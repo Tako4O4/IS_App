@@ -1,13 +1,12 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
-using Avalonia.Data.Core.Plugins;
-using System.Linq;
 using Avalonia.Markup.Xaml;
-using App.ViewModels;
-using App.Views;
+using Microsoft.Extensions.DependencyInjection;
+using PCFirmApp.Services;
+using PCFirmApp.ViewModels;
+using PCFirmApp.Views;
 
-namespace App;
+namespace PCFirmApp;
 
 public partial class App : Application
 {
@@ -18,11 +17,39 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        // Set up DI container
+        var services = new ServiceCollection();
+
+        // Database and core services
+        services.AddDbContext<AppDbContext>();
+        services.AddSingleton<AppState>();
+        services.AddSingleton<NavigationService>();
+
+        // Auth service
+        services.AddScoped<AuthService>();
+
+        // ViewModels (transient so each navigation gets a fresh instance)
+        services.AddTransient<LoginViewModel>();
+        services.AddTransient<RegisterViewModel>();
+        services.AddTransient<ManagerDashboardViewModel>();
+        services.AddTransient<EmployeeDashboardViewModel>();
+        services.AddTransient<CustomerDashboardViewModel>();
+        services.AddTransient<MainWindowViewModel>();
+
+        var serviceProvider = services.BuildServiceProvider();
+
+        // Initialize database
+        using (var scope = serviceProvider.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            dbContext.Database.EnsureCreated();
+        }
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
             };
         }
 

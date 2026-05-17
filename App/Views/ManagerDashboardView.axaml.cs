@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace PCFirmApp.Views;
 
-public partial class MainWindow : Window
+public partial class ManagerDashboardView : UserControl
 {
-    public MainWindow()
+    public ManagerDashboardView()
     {
         InitializeComponent();
     }

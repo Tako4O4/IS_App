@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:vm="using:PCFirmApp.ViewModels"
+            mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+            x:Class="PCFirmApp.Views.RegisterView"
+            x:DataType="vm:RegisterViewModel">
+
+    <Design.DataContext>
+        <vm:RegisterViewModel/>
+    </Design.DataContext>
+
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Padding="20">
+            <StackPanel Spacing="10">
+                <Button Content="Creare Cont"
+                        Command="{Binding RegisterCommand}"
+                        IsEnabled="{Binding !IsLoading}"
+                        Padding="10"
+                        Background="#107C10"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"/>
+
+                <Button Content="Înapoi la Autentificare"
+                        Command="{Binding BackCommand}"
+                        Padding="10"
+                        Background="#666"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer Padding="20">
+            <StackPanel Spacing="15">
+                <TextBlock Text="Creare Cont" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#0078D4"/>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Utilizator" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Username}" PlaceholderText="Alegeți un utilizator" Padding="10,8"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Email" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Email}" PlaceholderText="email@dumneavoastră.com" Padding="10,8"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Parolă" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Password}" PasswordChar="•" PlaceholderText="Cel puțin 6 caractere" Padding="10,8"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Confirmare Parolă" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding ConfirmPassword}" PasswordChar="•" PlaceholderText="Repetați parola" Padding="10,8"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Adresă (Opțional)" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Address}" PlaceholderText="Adresa dumneavoastră" Padding="10,8"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Număr Telefon (Opțional)" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding PhoneNumber}" PlaceholderText="Numărul de telefon" Padding="10,8"/>
+                </StackPanel>
+
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" TextWrapping="Wrap"/>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+
+</UserControl>

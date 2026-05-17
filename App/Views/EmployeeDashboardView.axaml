@@ -1,0 +1,74 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:vm="using:PCFirmApp.ViewModels"
+            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+            x:Class="PCFirmApp.Views.EmployeeDashboardView"
+            x:DataType="vm:EmployeeDashboardViewModel">
+
+    <Design.DataContext>
+        <vm:EmployeeDashboardViewModel/>
+    </Design.DataContext>
+
+    <Border Padding="20">
+        <StackPanel Spacing="20">
+            <StackPanel Spacing="10">
+                <TextBlock Text="{Binding WelcomeMessage}" FontSize="20" FontWeight="Bold" Foreground="#0078D4"/>
+                <TextBlock Text="Tablou de Bord Angajat" FontSize="16"/>
+            </StackPanel>
+
+            <StackPanel Spacing="15">
+                <TextBlock Text="Sarcini de Gestionare" FontWeight="Bold" FontSize="14"/>
+
+                <Button Content="Gestionare Comenzi"
+                        Command="{Binding ManageOrdersCommand}"
+                        Padding="15,10"
+                        Background="#0078D4"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"/>
+
+                <Button Content="Gestionare Cereri de Serviciu"
+                        Command="{Binding ManageServicesCommand}"
+                        Padding="15,10"
+                        Background="#0078D4"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"/>
+
+                <StackPanel IsVisible="{Binding IsSeniorEmployee}" Spacing="10">
+                    <Separator Margin="0,10,0,10"/>
+
+                    <TextBlock Text="Funcții Angajat Senior" FontWeight="Bold" FontSize="12" Foreground="#666"/>
+
+                    <Button Content="Gestionare Produse"
+                            Command="{Binding ManageProductsCommand}"
+                            Padding="15,10"
+                            Background="#107C10"
+                            Foreground="White"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"/>
+
+                    <Button Content="Gestionare Promosiuni"
+                            Command="{Binding ManagePromotionsCommand}"
+                            Padding="15,10"
+                            Background="#107C10"
+                            Foreground="White"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"/>
+                </StackPanel>
+
+                <Separator Margin="0,10,0,10"/>
+
+                <Button Content="Deconectare"
+                        Command="{Binding LogoutCommand}"
+                        Padding="15,10"
+                        Background="#C50F1F"
+                        Foreground="White"
+                        HorizontalAlignment="Left"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+
+</UserControl>
