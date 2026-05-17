@@ -50,7 +50,7 @@
                             HorizontalAlignment="Stretch"
                             HorizontalContentAlignment="Left"/>
 
-                    <Button Content="Gestionare Promosiuni"
+                    <Button Content="Gestionare Promoții"
                             Command="{Binding ManagePromotionsCommand}"
                             Padding="15,10"
                             Background="#107C10"
