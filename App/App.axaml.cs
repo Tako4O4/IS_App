@@ -32,6 +32,7 @@ public partial class App : Application
         services.AddTransient<LoginViewModel>();
         services.AddTransient<RegisterViewModel>();
         services.AddTransient<ManagerDashboardViewModel>();
+        services.AddTransient<EmployeeManagementViewModel>();
         services.AddTransient<EmployeeDashboardViewModel>();
         services.AddTransient<CustomerDashboardViewModel>();
         services.AddTransient<MainWindowViewModel>();
