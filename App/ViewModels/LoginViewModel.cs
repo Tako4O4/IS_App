@@ -50,7 +50,7 @@ public partial class LoginViewModel : ViewModelBase
 
             // Navigate based on role
             if (user.Role == Models.UserRole.Manager)
-                _navigationService.NavigateTo<ManagerDashboardViewModel>();
+                _navigationService.NavigateTo<EmployeeManagementViewModel>();
             else if (user.Role == Models.UserRole.SeniorEmployee || user.Role == Models.UserRole.JuniorEmployee)
                 _navigationService.NavigateTo<EmployeeDashboardViewModel>();
             else if (user.Role == Models.UserRole.Customer)

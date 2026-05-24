@@ -16,6 +16,7 @@ public partial class EmployeeManagementViewModel : ViewModelBase
     private readonly AppDbContext _context;
     private readonly AuthService _authService;
     private readonly NavigationService _navigationService;
+    private readonly AppState _appState;
 
     [ObservableProperty]
     private ObservableCollection<Employee> employees = new();
@@ -49,11 +50,12 @@ public partial class EmployeeManagementViewModel : ViewModelBase
 
     public List<UserRole> AvailableRoles { get; } = [UserRole.SeniorEmployee, UserRole.JuniorEmployee];
 
-    public EmployeeManagementViewModel(AppDbContext context, AuthService authService, NavigationService navigationService)
+    public EmployeeManagementViewModel(AppDbContext context, AuthService authService, NavigationService navigationService, AppState appState)
     {
         _context = context;
         _authService = authService;
         _navigationService = navigationService;
+        _appState = appState;
 
         LoadEmployeesCommand.Execute(null);
     }
@@ -166,9 +168,73 @@ public partial class EmployeeManagementViewModel : ViewModelBase
     }
 
     [RelayCommand]
+    public async Task DeleteEmployee(Guid employeeId)
+    {
+        try
+        {
+            IsLoading = true;
+            var employee = await _context.Employees.FindAsync(employeeId);
+            if (employee != null)
+            {
+                _context.Employees.Remove(employee);
+                await _context.SaveChangesAsync();
+                await LoadEmployeesCommand.ExecuteAsync(null);
+                SuccessMessage = "Angajatul a fost șters cu succes";
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Eroare la ștergerea angajatului: {ex.Message}";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    [RelayCommand]
+    public async Task PromoteEmployee(Guid employeeId)
+    {
+        try
+        {
+            IsLoading = true;
+            var employee = await _context.Employees.FindAsync(employeeId);
+            if (employee != null)
+            {
+                // Toggle between junior and senior
+                if (employee.Role == UserRole.JuniorEmployee)
+                {
+                    employee.Role = UserRole.SeniorEmployee;
+                }
+                else if (employee.Role == UserRole.SeniorEmployee)
+                {
+                    employee.Role = UserRole.JuniorEmployee;
+                }
+
+                _context.Employees.Update(employee);
+                await _context.SaveChangesAsync();
+                await LoadEmployeesCommand.ExecuteAsync(null);
+
+                var newRole = employee.Role == UserRole.SeniorEmployee ? "Senior" : "Junior";
+                SuccessMessage = $"Angajatul a fost promovat la {newRole}";
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Eroare la modificarea rolului: {ex.Message}";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    [RelayCommand]
     public void Back()
     {
-        _navigationService.NavigateTo<ManagerDashboardViewModel>();
+        // Manager logs out and returns to login
+        _appState.Logout();
+        _navigationService.NavigateTo<LoginViewModel>();
     }
 
     private void ClearFormFields()

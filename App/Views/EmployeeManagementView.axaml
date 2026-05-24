@@ -11,6 +11,7 @@
 
     <UserControl.Resources>
         <v:UserRoleConverter x:Key="UserRoleConverter"/>
+        <v:PromoteButtonConverter x:Key="PromoteButtonConverter"/>
     </UserControl.Resources>
 
     <DockPanel>
@@ -141,12 +142,33 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="models:Employee">
                                 <Border BorderBrush="#EFEFEF" BorderThickness="0,0,0,1" Padding="0,8">
-                                    <Grid ColumnDefinitions="150,150,100,120,60">
+                                    <Grid ColumnDefinitions="150,150,100,120,80,*,170">
                                         <TextBlock Grid.Column="0" Text="{Binding Username}" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Text="{Binding Email}" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="2" Text="{Binding Role, Converter={StaticResource UserRoleConverter}}" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="3" Text="{Binding EmploymentDate, StringFormat='dd.MM.yyyy'}" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="4" Text="{Binding IsActive}" VerticalAlignment="Center"/>
+
+                                        <!-- Spacer column for flexible width -->
+                                        <TextBlock Grid.Column="5" Text=""/>
+
+                                        <!-- Action Buttons (right-aligned) -->
+                                        <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                            <!-- Promote/Demote Button -->
+                                            <Button Command="{Binding $parent[ListBox].DataContext.PromoteEmployeeCommand}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Background="#0078D4" Foreground="White"
+                                                    Padding="8,4" FontSize="11"
+                                                    Content="{Binding Role, Converter={StaticResource PromoteButtonConverter}}"/>
+
+                                            <!-- Delete Button -->
+                                            <Button Command="{Binding $parent[ListBox].DataContext.DeleteEmployeeCommand}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Background="#D13438" Foreground="White"
+                                                    Padding="8,4" FontSize="11">
+                                                Șterge
+                                            </Button>
+                                        </StackPanel>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
