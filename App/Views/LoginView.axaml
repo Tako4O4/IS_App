@@ -46,6 +46,14 @@
                         Foreground="White"
                         HorizontalAlignment="Stretch"/>
 
+                <Button Content="Înapoi la Produse" 
+                    Command="{Binding GoBackCommand}" 
+                    HorizontalAlignment="Stretch" 
+                    Margin="0,10,0,0"
+                    Padding="10"
+                    Background="#555555" 
+                    Foreground="White"/>
+
                 <TextBlock Text="Conturi Demo:" FontWeight="SemiBold" Margin="0,10,0,0"/>
                 <TextBlock Text="Manager: manager / admin123" FontSize="12" Foreground="#666"/>
                 <TextBlock Text="Angajat Senior: senior_emp / senior123" FontSize="12" Foreground="#666"/>
