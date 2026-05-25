@@ -67,4 +67,10 @@ public partial class LoginViewModel : ViewModelBase
     {
         _navigationService.NavigateTo<RegisterViewModel>();
     }
+
+    [RelayCommand]
+    private void GoBack()
+    {
+        _navigationService.NavigateToHome();
+    }
 }

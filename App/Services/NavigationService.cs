@@ -22,4 +22,9 @@ public partial class NavigationService : ObservableObject
         var viewModel = _serviceProvider.GetRequiredService<T>();
         CurrentPage = viewModel;
     }
+
+    public void NavigateToHome()
+    {
+        CurrentPage = null;
+    }
 }
