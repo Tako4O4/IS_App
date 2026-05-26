@@ -19,6 +19,8 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public bool ShowProductList => CurrentPage == null;
 
+    public ObservableCollection<Product> Cart => _appState.Cart;
+
     public ObservableCollection<Product> Products { get; } = new();
 
     public MainWindowViewModel(NavigationService navigationService, AppState appState, AppDbContext dbContext)
@@ -62,4 +64,26 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         _navigationService.NavigateToHome();
     }
+
+    [RelayCommand]
+    private void ViewDetails(Product product)
+    {
+        if (product != null)
+        {
+            _appState.SelectedProduct = product;
+            _navigationService.NavigateTo<ProductDetailsViewModel>();
+        }
+    }
+
+
+    [RelayCommand]
+    private void AddToCart(Product product)
+    {
+        if (product != null)
+        {
+            _appState.Cart.Add(product);
+        }
+    }
+
+
 }

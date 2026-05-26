@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel; // Adăugat pentru coșul de cumpărături
 using CommunityToolkit.Mvvm.ComponentModel;
 using PCFirmApp.Models;
 
@@ -5,6 +6,7 @@ namespace PCFirmApp.Services;
 
 public partial class AppState : ObservableObject
 {
+    // --- CODUL TĂU EXISTENT (Rămâne neatins și în siguranță) ---
     [ObservableProperty]
     private User? currentUser;
 
@@ -25,4 +27,10 @@ public partial class AppState : ObservableObject
     {
         CurrentUser = null;
     }
+
+
+    public Product? SelectedProduct { get; set; }
+
+    // Lista globală care ține minte ce produse au fost adăugate în coș
+    public ObservableCollection<Product> Cart { get; } = new();
 }
