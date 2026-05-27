@@ -26,7 +26,7 @@ public partial class EmployeeDashboardViewModel : ViewModelBase
     [RelayCommand]
     public void ManageOrders()
     {
-        // TODO: Navigate to OrderManagementView in Phase 5
+        _navigationService.NavigateTo<OrderManagementViewModel>();
     }
 
     [RelayCommand]
