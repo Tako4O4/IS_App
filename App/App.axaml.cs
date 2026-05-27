@@ -38,6 +38,7 @@ public partial class App : Application
         services.AddTransient<ProductDetailsViewModel>();
         services.AddTransient<OrderManagementViewModel>();
         services.AddTransient<ServiceManagementViewModel>();
+        services.AddTransient<ProductManagementViewModel>();
 
         var serviceProvider = services.BuildServiceProvider();
 
