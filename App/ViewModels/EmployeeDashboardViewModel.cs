@@ -44,7 +44,7 @@ public partial class EmployeeDashboardViewModel : ViewModelBase
     [RelayCommand]
     public void ManagePromotions()
     {
-        // TODO: Navigate to PromotionManagementView in Phase 6 (Senior only)
+        _navigationService.NavigateTo<PromotionManagementViewModel>();
     }
 
     [RelayCommand]
