@@ -32,7 +32,7 @@ public partial class EmployeeDashboardViewModel : ViewModelBase
     [RelayCommand]
     public void ManageServices()
     {
-        // TODO: Navigate to ServiceManagementView in Phase 5
+        _navigationService.NavigateTo<ServiceManagementViewModel>();
     }
 
     [RelayCommand]
