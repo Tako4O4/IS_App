@@ -38,7 +38,7 @@ public partial class EmployeeDashboardViewModel : ViewModelBase
     [RelayCommand]
     public void ManageProducts()
     {
-        // TODO: Navigate to ProductManagementView in Phase 2 (Senior only)
+        _navigationService.NavigateTo<ProductManagementViewModel>();
     }
 
     [RelayCommand]
