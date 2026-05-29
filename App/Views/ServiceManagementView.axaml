@@ -1,0 +1,113 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:PCFirmApp.ViewModels"
+             xmlns:models="using:PCFirmApp.Models"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:DataType="vm:ServiceManagementViewModel"
+             x:Class="PCFirmApp.Views.ServiceManagementView">
+
+    <DockPanel>
+        <!-- Back Button at Bottom -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="20,10" Spacing="10">
+            <Button Command="{Binding BackCommand}"
+                    Background="#999999" Foreground="White"
+                    Padding="15,10" FontSize="14">
+                Înapoi
+            </Button>
+        </StackPanel>
+
+        <!-- Main Content Area -->
+        <ScrollViewer>
+            <StackPanel Margin="20,20" Spacing="20">
+
+                <!-- Page Title -->
+                <TextBlock Text="Gestionare Cereri de Serviciu"
+                           FontSize="24" FontWeight="Bold"
+                           Foreground="#0078D4"/>
+
+                <!-- Error Message -->
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="Red"
+                           IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+                <!-- Success Message -->
+                <TextBlock Text="{Binding SuccessMessage}"
+                           Foreground="Green"
+                           IsVisible="{Binding SuccessMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+                <!-- Service Requests List Section -->
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Lista Cererilor de Serviciu"
+                               FontSize="14" FontWeight="Bold"/>
+
+                    <TextBlock Text="Se încarcă..."
+                               IsVisible="{Binding IsLoading}"/>
+
+                    <TextBlock Text="Nu există cereri de serviciu"
+                               IsVisible="{Binding HasNoRequests}"
+                               Foreground="#666"/>
+
+                    <!-- Service Requests List -->
+                    <ListBox ItemsSource="{Binding ServiceRequests}" IsVisible="{Binding !IsLoading}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="models:ServiceRequest">
+                                <Border BorderBrush="#EFEFEF" BorderThickness="0,0,0,1" Padding="0,10">
+                                    <StackPanel Spacing="6">
+                                        <!-- Header: Customer + Status -->
+                                        <Grid ColumnDefinitions="*,150">
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding Customer.Username, StringFormat='Client: {0}'}"
+                                                       FontWeight="Bold" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding Status}"
+                                                       FontWeight="Bold"
+                                                       Foreground="#0078D4"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Right"/>
+                                        </Grid>
+
+                                        <!-- Contact Info -->
+                                        <TextBlock Text="{Binding ContactPhone, StringFormat='Telefon: {0}'}" FontSize="12"/>
+                                        <TextBlock Text="{Binding ContactEmail, StringFormat='Email: {0}'}" FontSize="12"/>
+
+                                        <!-- Dates -->
+                                        <TextBlock Text="{Binding RequestDate, StringFormat='Solicitat: {0:dd.MM.yyyy HH:mm}'}" FontSize="12"/>
+                                        <TextBlock Text="{Binding DropoffDate, StringFormat='Predare: {0:dd.MM.yyyy}'}" FontSize="12"/>
+
+                                        <!-- Description -->
+                                        <TextBlock Text="{Binding Description, StringFormat='Problemă: {0}'}" 
+                                                   TextWrapping="Wrap" FontSize="12"/>
+
+                                        <!-- Status Action Buttons -->
+                                        <StackPanel Orientation="Horizontal" Spacing="5" Margin="0,5,0,0">
+                                            <Button Content="În lucru"
+                                                    Command="{Binding $parent[ListBox].DataContext.SetInProgressCommand}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Background="#FFA500" Foreground="White"
+                                                    Padding="8,4" FontSize="11"/>
+                                            <Button Content="Finalizează"
+                                                    Command="{Binding $parent[ListBox].DataContext.SetCompletedCommand}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Background="#107C10" Foreground="White"
+                                                    Padding="8,4" FontSize="11"/>
+                                            <Button Content="Anulează"
+                                                    Command="{Binding $parent[ListBox].DataContext.SetCancelledCommand}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Background="#D13438" Foreground="White"
+                                                    Padding="8,4" FontSize="11"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </DockPanel>
+
+</UserControl>

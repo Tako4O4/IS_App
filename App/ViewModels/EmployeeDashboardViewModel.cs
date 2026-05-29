@@ -26,25 +26,25 @@ public partial class EmployeeDashboardViewModel : ViewModelBase
     [RelayCommand]
     public void ManageOrders()
     {
-        // TODO: Navigate to OrderManagementView in Phase 5
+        _navigationService.NavigateTo<OrderManagementViewModel>();
     }
 
     [RelayCommand]
     public void ManageServices()
     {
-        // TODO: Navigate to ServiceManagementView in Phase 5
+        _navigationService.NavigateTo<ServiceManagementViewModel>();
     }
 
     [RelayCommand]
     public void ManageProducts()
     {
-        // TODO: Navigate to ProductManagementView in Phase 2 (Senior only)
+        _navigationService.NavigateTo<ProductManagementViewModel>();
     }
 
     [RelayCommand]
     public void ManagePromotions()
     {
-        // TODO: Navigate to PromotionManagementView in Phase 6 (Senior only)
+        _navigationService.NavigateTo<PromotionManagementViewModel>();
     }
 
     [RelayCommand]
