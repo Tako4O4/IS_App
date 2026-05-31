@@ -16,6 +16,8 @@ public abstract class Product
     public bool IsActive { get; set; } = true;
     public double AverageRating { get; set; } = 0;
 
+    public string ProductType { get; set; } = string.Empty;
+
     public ICollection<OrderItem> OrderItems { get; set; } = [];
     public ICollection<ProductReview> Reviews { get; set; } = [];
     public ICollection<PromotionProduct> PromotionProducts { get; set; } = [];
