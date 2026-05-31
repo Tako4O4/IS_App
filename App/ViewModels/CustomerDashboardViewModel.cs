@@ -22,25 +22,25 @@ public partial class CustomerDashboardViewModel : ViewModelBase
     [RelayCommand]
     public void BrowseCatalog()
     {
-        // TODO: Navigate to ProductCatalogView in Phase 2
+        _navigationService.NavigateTo<ProductCatalogViewModel>();
     }
 
     [RelayCommand]
     public void MyOrders()
     {
-        // TODO: Navigate to CustomerOrdersView in Phase 3
+        _navigationService.NavigateTo<CustomerOrdersViewModel>();
     }
 
     [RelayCommand]
     public void MyServices()
     {
-        // TODO: Navigate to CustomerServicesView in Phase 4
+        _navigationService.NavigateTo<CustomerServicesViewModel>();
     }
 
     [RelayCommand]
     public void ViewCart()
     {
-        // TODO: Navigate to CartView in Phase 3
+        _navigationService.NavigateTo<CartViewModel>();
     }
 
     [RelayCommand]

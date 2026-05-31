@@ -24,6 +24,11 @@ public partial class App : Application
         services.AddDbContext<AppDbContext>();
         services.AddSingleton<AppState>();
         services.AddSingleton<NavigationService>();
+        services.AddSingleton<CartService>();
+        services.AddTransient<ProductCatalogViewModel>();
+        services.AddTransient<CartViewModel>();
+        services.AddTransient<CustomerOrdersViewModel>();
+        services.AddTransient<CustomerServicesViewModel>();
 
         // Auth service
         services.AddScoped<AuthService>();

@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PCFirmApp.ViewModels"
+             x:Class="PCFirmApp.Views.CustomerServicesView"
+             x:DataType="vm:CustomerServicesViewModel">
+
+    <ScrollViewer Padding="20">
+        <StackPanel Spacing="15">
+            <TextBlock Text="Cererile Mele de Serviciu" FontSize="24" FontWeight="Bold" Foreground="#0078D4"/>
+
+            <TextBlock Text="Cerere nouă" FontSize="18" FontWeight="Bold"/>
+
+            <TextBox Text="{Binding Description}" PlaceholderText="Descriere problemă"/>
+            <TextBox Text="{Binding ContactPhone}" PlaceholderText="Telefon contact"/>
+            <TextBox Text="{Binding ContactEmail}" PlaceholderText="Email contact"/>
+
+            <CalendarDatePicker SelectedDate="{Binding DropoffDate}"
+                                PlaceholderText="Data predare PC"/>
+
+            <Button Content="Trimite cererea"
+                    Command="{Binding SubmitRequestCommand}"
+                    Background="#107C10"
+                    Foreground="White"
+                    Padding="12,8"
+                    HorizontalAlignment="Left"/>
+
+            <TextBlock Text="{Binding Message}" Foreground="Green" TextWrapping="Wrap"/>
+
+            <Separator/>
+
+            <TextBlock Text="Istoric cereri service" FontSize="18" FontWeight="Bold"/>
+
+            <ItemsControl ItemsSource="{Binding ServiceRequests}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#DDD" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,10">
+                            <StackPanel Spacing="5">
+                                <TextBlock Text="{Binding RequestDate, StringFormat='Data cererii: {0:g}'}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Status, StringFormat='Status: {0}'}"/>
+                                <TextBlock Text="{Binding DropoffDate, StringFormat='Data predare: {0:d}'}"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding ContactPhone, StringFormat='Telefon: {0}'}"/>
+                                <TextBlock Text="{Binding ContactEmail, StringFormat='Email: {0}'}"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Button Content="Înapoi"
+                    Command="{Binding BackCommand}"
+                    Background="#0078D4"
+                    Foreground="White"
+                    Padding="12,8"
+                    HorizontalAlignment="Left"/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

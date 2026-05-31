@@ -1,0 +1,61 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PCFirmApp.ViewModels"
+             x:Class="PCFirmApp.Views.CartView"
+             x:DataType="vm:CartViewModel">
+
+    <DockPanel Margin="20">
+
+        <StackPanel DockPanel.Dock="Bottom" Spacing="10" Margin="0,10,0,0">
+            <TextBlock Text="{Binding Subtotal, StringFormat='Subtotal: {0:C}'}" FontSize="16" FontWeight="Bold"/>
+            <TextBlock Text="{Binding TotalDiscount, StringFormat='Reduceri totale: -{0:C}'}" FontSize="16" Foreground="#C50F1F" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Total, StringFormat='TOTAL FINAL: {0:C}'}" FontSize="20" Foreground="#107C10" FontWeight="Bold"/>
+
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="Plasează comanda" Command="{Binding PlaceOrderCommand}" Background="#107C10" Foreground="White" Padding="12,8"/>
+                <Button Content="Golește coșul" Command="{Binding ClearCartCommand}" Background="#666" Foreground="White" Padding="12,8"/>
+                <Button Content="Înapoi" Command="{Binding BackCommand}" Background="#0078D4" Foreground="White" Padding="12,8"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Top" Spacing="8">
+            <TextBlock Text="Coșul meu" FontSize="24" FontWeight="Bold" Foreground="#0078D4"/>
+            <TextBlock Text="{Binding Message}" Foreground="Green" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#DDD" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,10">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="{Binding Product.Name}" FontSize="18" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Quantity, StringFormat='Cantitate: {0}'}"/>
+                                <TextBlock Text="{Binding UnitPrice, StringFormat='Preț/bucată: {0:C}'}"/>
+                                <TextBlock Text="{Binding TotalPrice, StringFormat='Subtotal: {0:C}'}" FontWeight="Bold"/>
+
+                                <TextBlock IsVisible="{Binding HasPromotion}"
+                                           Text="{Binding DiscountValue, StringFormat='Promoție: -{0:C}'}"
+                                           Foreground="#C50F1F"
+                                           FontWeight="Bold"/>
+
+                                <TextBlock Text="{Binding FinalPrice, StringFormat='Final: {0:C}'}"
+                                           Foreground="#107C10"
+                                           FontWeight="Bold"/>
+
+                                <Button Content="Elimină"
+                                        Command="{Binding $parent[ItemsControl].DataContext.RemoveItemCommand}"
+                                        CommandParameter="{Binding}"
+                                        Background="#C50F1F"
+                                        Foreground="White"
+                                        Padding="10,6"
+                                        HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </DockPanel>
+</UserControl>

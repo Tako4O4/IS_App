@@ -1,0 +1,84 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PCFirmApp.ViewModels"
+             x:Class="PCFirmApp.Views.ProductCatalogView"
+             x:DataType="vm:ProductCatalogViewModel">
+
+    <DockPanel Margin="20">
+
+        <StackPanel DockPanel.Dock="Top" Spacing="10" Margin="0,0,0,10">
+            <TextBlock Text="Catalog produse" FontSize="24" FontWeight="Bold" Foreground="#0078D4"/>
+
+            <Button Content="Înapoi"
+                    Command="{Binding BackCommand}"
+                    Padding="10"
+                    Background="#666"
+                    Foreground="White"
+                    HorizontalAlignment="Left"/>
+
+            <StackPanel Spacing="5">
+                <TextBlock Text="Filtrare după categorie:" FontWeight="Bold"/>
+                <ComboBox ItemsSource="{Binding Categories}"
+                          SelectedItem="{Binding SelectedCategory}"
+                          Width="220"
+                          HorizontalAlignment="Left"/>
+            </StackPanel>
+
+            <TextBlock Text="{Binding Message}" Foreground="Green" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding Products}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#DDD"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="8"
+                                Margin="0,0,0,8">
+
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Category, StringFormat='Categorie: {0}'}"/>
+                                <TextBlock Text="{Binding AverageRating, StringFormat='Rating mediu: {0:F1}/5 ⭐'}"/>
+                                <TextBlock Text="{Binding Price, StringFormat='Preț: {0:C}'}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding StockCount, StringFormat='Stoc: {0}'}"/>
+
+                                <WrapPanel Margin="0,6,0,0">
+                                    <ComboBox ItemsSource="{Binding $parent[ItemsControl].DataContext.Ratings}"
+                                              SelectedItem="{Binding $parent[ItemsControl].DataContext.SelectedRating}"
+                                              Width="70"
+                                              Margin="0,0,8,0"/>
+
+                                    <TextBox Text="{Binding $parent[ItemsControl].DataContext.ReviewText}"
+                                             PlaceholderText="Review opțional"
+                                             Width="260"
+                                             Height="32"
+                                             Margin="0,0,8,0"/>
+
+                                    <Button Content="Trimite rating"
+                                            Command="{Binding $parent[ItemsControl].DataContext.SubmitRatingCommand}"
+                                            CommandParameter="{Binding}"
+                                            Background="#F0A500"
+                                            Foreground="White"
+                                            Padding="10,6"
+                                            Margin="0,0,8,0"/>
+
+                                    <Button Content="Adaugă în coș"
+                                            Command="{Binding $parent[ItemsControl].DataContext.AddToCartCommand}"
+                                            CommandParameter="{Binding}"
+                                            Background="#107C10"
+                                            Foreground="White"
+                                            Padding="10,6"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </DockPanel>
+</UserControl>
