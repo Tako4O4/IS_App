@@ -55,3 +55,5 @@ nunit-*.xml
 IS_App.sln
 App/Data/pcfirm.db-wal
 App/Data/pcfirm.db-shm
+
+.idea
