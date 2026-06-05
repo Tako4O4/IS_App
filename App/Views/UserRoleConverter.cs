@@ -16,8 +16,8 @@ public class UserRoleConverter : IValueConverter
             return role switch
             {
                 UserRole.Manager => "Manager",
-                UserRole.SeniorEmployee => "Angajat Senior",
-                UserRole.JuniorEmployee => "Angajat Junior",
+                UserRole.SeniorEmployee => "Senior",
+                UserRole.JuniorEmployee => "Junior",
                 UserRole.Customer => "Client",
                 _ => role.ToString()
             };
